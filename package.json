@@ -1,0 +1,19 @@
+{
+  "name": "project-blog-frontend",
+  "version": "1.0.0",
+  "description": "Frontend of Chuilian's blog",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/iloveyoukcl5770/project-blog-frontend.git"
+  },
+  "author": "Chuilian Kong",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/iloveyoukcl5770/project-blog-frontend/issues"
+  },
+  "homepage": "https://github.com/iloveyoukcl5770/project-blog-frontend#readme"
+}
