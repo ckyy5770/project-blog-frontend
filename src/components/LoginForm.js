@@ -1,5 +1,8 @@
-import React, {Component} from 'react';
-import {Field, reduxForm} from 'redux-form';
+import React, { Component } from 'react';
+import { Field, reduxForm } from 'redux-form';
+import { bindActionCreators } from 'redux'
+import { connect } from 'react-redux';
+import { loginUser } from '../actions/index'
 
 class LoginForm extends Component{
 
@@ -18,9 +21,19 @@ class LoginForm extends Component{
         )
     }
 
+    renderAuthMessage(){
+        if(this.props.authErrorMessage){
+            return (
+                <div className="alert alert-danger">
+                    <strong>{this.props.authErrorMessage}</strong>
+                </div>
+            )
+        }
+    }
+
     onSubmit(values){
         if(values){
-            console.log(values.email, values.password);
+            this.props.loginUser({email: values.email, password: values.password});
         }
 
     }
@@ -46,6 +59,7 @@ class LoginForm extends Component{
                         component={this.renderField}
                     />
                 </fieldset>
+                {this.renderAuthMessage()}
                 <button action="submit" className="btn btn-primary">Log in</button>
             </form>
         );
@@ -66,7 +80,17 @@ function validateForm(values){
     return errors;
 }
 
+function mapStateToProps(state){
+    return { authErrorMessage: state.auth.error};
+}
+
+function mapDispatchToProps(dispatch){
+    return bindActionCreators({
+        loginUser: loginUser
+    },dispatch);
+}
+
 export default  reduxForm({
     validateForm,
     form: 'login',
-})(LoginForm)
+})(connect(mapStateToProps, mapDispatchToProps)(LoginForm))
