@@ -1,4 +1,4 @@
-import {AUTH_ERR, AUTH_USER, UNAUTH_USER} from "../actions/index"
+import {AUTH_ERR, AUTH_USER, UNAUTH_USER, CLEAR_AUTH_ERR} from "../actions/index"
 
 
 export default function (state={}, action) {
@@ -9,6 +9,8 @@ export default function (state={}, action) {
             return {...state, authenticated: false};
         case AUTH_ERR:
             return {...state, error: action.payload};
+        case CLEAR_AUTH_ERR:
+            return {...state, error: ""};
         default: return state;
     }
 }

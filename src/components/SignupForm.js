@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import { Field, reduxForm } from 'redux-form';
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux';
-import { loginUser, clearAuthErr } from '../actions/index'
+import { signupUser, clearAuthErr } from '../actions/index'
 
-class LoginForm extends Component{
+class SignupForm extends Component{
     componentWillMount(){
         this.props.clearAuthErr();
     }
@@ -36,7 +36,7 @@ class LoginForm extends Component{
 
     onSubmit(values){
         if(values){
-            this.props.loginUser({email: values.email, password: values.password});
+            this.props.signupUser({email: values.email, password: values.password});
         }
 
     }
@@ -58,6 +58,12 @@ class LoginForm extends Component{
                     type="password"
                     component={this.renderField}
                 />
+                <Field
+                    label="Confirm Password:"
+                    name="passwordConfirm"
+                    type="password"
+                    component={this.renderField}
+                />
                 {this.renderAuthMessage()}
                 <button action="submit" className="btn btn-primary">Log in</button>
             </form>
@@ -67,13 +73,21 @@ class LoginForm extends Component{
 
 function validateForm(values){
     const errors={};
-
+    console.log(values);
     if(!values.email){
         errors.email = "enter a email";
     }
 
     if(!values.password){
         errors.password = "enter a password";
+    }
+
+    if(!values.passwordConfirm){
+        errors.passwordConfirm = "confirm your password";
+    }else{
+        if(values.passwordConfirm != values.password){
+            errors.passwordConfirm = "password doesn't match";
+        }
     }
 
     return errors;
@@ -85,12 +99,12 @@ function mapStateToProps(state){
 
 function mapDispatchToProps(dispatch){
     return bindActionCreators({
-        loginUser: loginUser,
+        signupUser: signupUser,
         clearAuthErr: clearAuthErr
     },dispatch);
 }
 
 export default  reduxForm({
     validate: validateForm,
-    form: 'login',
-})(connect(mapStateToProps, mapDispatchToProps)(LoginForm))
+    form: 'signup',
+})(connect(mapStateToProps, mapDispatchToProps)(SignupForm))

@@ -9,11 +9,12 @@ import reduxThunk from 'redux-thunk';
 
 import rootReducer from './reducers/rootReducer'
 
+
+import SignupPage from "./components/pages/SignupPage";
 import IndexPage from './components/pages/IndexPage'
 import LoginPage from './components/pages/LoginPage'
-import SignoutPage from './components/pages/LogoutPage'
+import LogoutPage from './components/pages/LogoutPage'
 import NavigationBar from './components/NavigationBar'
-
 
 
 const createStoreWithMiddleware = applyMiddleware(reduxThunk)(createStore);
@@ -29,8 +30,9 @@ const App = () => {
 						</div>
 						<div className="row">
 							<Switch>
+								<Route path="/signup" component={SignupPage}/>
 								<Route path="/login" component={LoginPage}/>
-								<Route path="/signout" component={SignoutPage}/>
+								<Route path="/logout" component={LogoutPage}/>
 								<Route path="/" component={IndexPage} />
 							</Switch>
 
