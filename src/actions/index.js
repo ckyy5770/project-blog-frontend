@@ -45,7 +45,7 @@ export function signupUser({email, password}){
                 history.push('/');
             })
             .catch(response =>{
-                dispatch(authErr(`signup failed. ${response}`))
+                dispatch(authErr(`signup failed. ${response.data.error}`))
             })
     }
 }

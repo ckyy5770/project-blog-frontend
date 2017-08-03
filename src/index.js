@@ -7,21 +7,31 @@ import history from './history'
 import promise from 'redux-promise';
 import reduxThunk from 'redux-thunk';
 
-import rootReducer from './reducers/rootReducer'
+import rootReducer from './reducers/rootReducer';
 
+import ProfilePage from './components/pages/ProfilePage';
+import SignupPage from './components/pages/SignupPage';
+import IndexPage from './components/pages/IndexPage';
+import LoginPage from './components/pages/LoginPage';
+import LogoutPage from './components/pages/LogoutPage';
+import NavigationBar from './components/NavigationBar';
 
-import SignupPage from "./components/pages/SignupPage";
-import IndexPage from './components/pages/IndexPage'
-import LoginPage from './components/pages/LoginPage'
-import LogoutPage from './components/pages/LogoutPage'
-import NavigationBar from './components/NavigationBar'
+import RequireAuth from './components/RequireAuth';
+
+import { AUTH_USER} from "./actions/index";
 
 
 const createStoreWithMiddleware = applyMiddleware(reduxThunk)(createStore);
+const store = createStoreWithMiddleware(rootReducer);
+
+const token = localStorage.getItem('token');
+if(token){
+	store.dispatch({ type: AUTH_USER});
+}
 
 const App = () => {
 	return (
-		<Provider store={createStoreWithMiddleware(rootReducer)}>
+		<Provider store={store}>
 			<Router history={history}>
 				<div className="row">
 					<div className="col-md-12">
@@ -30,6 +40,7 @@ const App = () => {
 						</div>
 						<div className="row">
 							<Switch>
+								<Route path="/profile" component={RequireAuth(ProfilePage)}/>
 								<Route path="/signup" component={SignupPage}/>
 								<Route path="/login" component={LoginPage}/>
 								<Route path="/logout" component={LogoutPage}/>
