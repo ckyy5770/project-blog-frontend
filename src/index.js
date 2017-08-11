@@ -4,7 +4,7 @@ import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
 import { Router, Route, Switch } from 'react-router-dom';
 import history from './history'
-import promise from 'redux-promise';
+import reduxPromise from 'redux-promise';
 import reduxThunk from 'redux-thunk';
 
 import rootReducer from './reducers/rootReducer';
@@ -15,13 +15,14 @@ import IndexPage from './components/pages/IndexPage';
 import LoginPage from './components/pages/LoginPage';
 import LogoutPage from './components/pages/LogoutPage';
 import NavigationBar from './components/NavigationBar';
+import PostIndexPage from './components/pages/post/PostIndexPage';
 
 import RequireAuth from './components/RequireAuth';
 
 import { AUTH_USER} from "./actions/index";
 
 
-const createStoreWithMiddleware = applyMiddleware(reduxThunk)(createStore);
+const createStoreWithMiddleware = applyMiddleware(reduxThunk, reduxPromise)(createStore);
 const store = createStoreWithMiddleware(rootReducer);
 
 const token = localStorage.getItem('token');
@@ -40,6 +41,7 @@ const App = () => {
 						</div>
 						<div className="row">
 							<Switch>
+								<Route path="/posts" component={PostIndexPage}/>
 								<Route path="/profile" component={RequireAuth(ProfilePage)}/>
 								<Route path="/signup" component={SignupPage}/>
 								<Route path="/login" component={LoginPage}/>
