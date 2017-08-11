@@ -19,6 +19,7 @@ import PostIndexPage from './components/pages/post/PostIndexPage';
 import PostShowPage from './components/pages/post/PostShowPage';
 import PostNewPage from './components/pages/post/PostNewPage';
 import PostEditPage from './components/pages/post/PostEditPage';
+import CommentEditPage from './components/pages/post/CommentEditPage';
 
 import RequireAuth from './components/RequireAuth';
 
@@ -43,7 +44,9 @@ const App = () => {
 						</div>
 						<div className="row">
 							<Switch>
+
 								<Route path="/posts/new" component={PostNewPage}/>
+								<Route path="/posts/:postId/comments/:commentId" component={CommentEditPage}/>
 								<Route path="/posts/:postId/edit" component={PostEditPage}/>
 								<Route path="/posts/:postId" component={PostShowPage}/>
 								<Route path="/posts" component={PostIndexPage}/>
