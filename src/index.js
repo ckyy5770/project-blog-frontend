@@ -16,6 +16,7 @@ import LoginPage from './components/pages/LoginPage';
 import LogoutPage from './components/pages/LogoutPage';
 import NavigationBar from './components/NavigationBar';
 import PostIndexPage from './components/pages/post/PostIndexPage';
+import PostShowPage from './components/pages/post/PostShowPage';
 
 import RequireAuth from './components/RequireAuth';
 
@@ -41,7 +42,9 @@ const App = () => {
 						</div>
 						<div className="row">
 							<Switch>
+								<Route path="/posts/:postId" component={PostShowPage}/>
 								<Route path="/posts" component={PostIndexPage}/>
+
 								<Route path="/profile" component={RequireAuth(ProfilePage)}/>
 								<Route path="/signup" component={SignupPage}/>
 								<Route path="/login" component={LoginPage}/>

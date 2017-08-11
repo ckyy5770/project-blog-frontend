@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux';
 import {fetchPosts} from "../../../actions/post"
+import { Link } from 'react-router-dom'
 
 
 class PostIndexPage extends Component{
@@ -19,12 +20,14 @@ class PostIndexPage extends Component{
             <tr key={id}>
                 <td>{title}</td>
                 <td>{content}</td>
+                <td>
+                    <Link to={`/posts/${id}`}>Read More</Link>
+                </td>
             </tr>
         );
     }
 
     render(){
-        console.log(this.props.posts);
         if(!this.props.posts){
             return (
                 <div>
@@ -38,6 +41,7 @@ class PostIndexPage extends Component{
                     <tr>
                         <th>title</th>
                         <th>content</th>
+                        <th>detail</th>
                     </tr>
                     </thead>
                     <tbody>
