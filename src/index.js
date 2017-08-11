@@ -17,11 +17,12 @@ import LogoutPage from './components/pages/LogoutPage';
 import NavigationBar from './components/NavigationBar';
 import PostIndexPage from './components/pages/post/PostIndexPage';
 import PostShowPage from './components/pages/post/PostShowPage';
+import PostNewPage from './components/pages/post/PostNewPage';
+import PostEditPage from './components/pages/post/PostEditPage';
 
 import RequireAuth from './components/RequireAuth';
 
 import { AUTH_USER} from "./actions/index";
-
 
 const createStoreWithMiddleware = applyMiddleware(reduxThunk, reduxPromise)(createStore);
 const store = createStoreWithMiddleware(rootReducer);
@@ -42,6 +43,8 @@ const App = () => {
 						</div>
 						<div className="row">
 							<Switch>
+								<Route path="/posts/new" component={PostNewPage}/>
+								<Route path="/posts/:postId/edit" component={PostEditPage}/>
 								<Route path="/posts/:postId" component={PostShowPage}/>
 								<Route path="/posts" component={PostIndexPage}/>
 

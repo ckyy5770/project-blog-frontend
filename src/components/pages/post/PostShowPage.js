@@ -2,15 +2,13 @@ import React, { Component } from 'react';
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux';
 import { fetchPostById, deletePostById } from "../../../actions/post"
+import { Link } from 'react-router-dom'
+
 
 class PostShowPage extends Component{
 
     componentDidMount(){
         this.props.fetchPostById(this.props.match.params.postId);
-    }
-
-    onEditClick(){
-
     }
 
     onDeleteClick(){
@@ -29,8 +27,9 @@ class PostShowPage extends Component{
                 <div>
                     {this.props.show.data.title},
                     {this.props.show.data.content},
-                    <span onClick={this.onEditClick.bind(this)} className="btn btn-primary">Edit</span>,
+                    <Link to={`/posts/${this.props.match.params.postId}/edit`} className="btn btn-primary">Edit</Link>
                     <span onClick={this.onDeleteClick.bind(this)} className="btn btn-danger">Delete</span>
+                    <Link to={`/posts/`} className="btn btn-primary">Back</Link>
                 </div>
             );
         }

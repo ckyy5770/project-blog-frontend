@@ -27,6 +27,16 @@ class PostIndexPage extends Component{
         );
     }
 
+    renderButton(){
+        if(this.props.authenticated){
+            return (
+                <div>
+                    <Link to="/posts/new">New Post</Link>
+                </div>
+            )
+        }
+    }
+
     render(){
         if(!this.props.posts){
             return (
@@ -36,28 +46,31 @@ class PostIndexPage extends Component{
             );
         }else{
             return (
-                <table className="table table-hover">
-                    <thead>
-                    <tr>
-                        <th>title</th>
-                        <th>content</th>
-                        <th>detail</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                        {this.props.posts.data.map(this.renderPost)}
-                    </tbody>
-                </table>
+                <div>
+                    <table className="table table-hover">
+                        <thead>
+                        <tr>
+                            <th>title</th>
+                            <th>content</th>
+                            <th>detail</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                            {this.props.posts.data.map(this.renderPost)}
+                        </tbody>
+                    </table>
+                    {this.renderButton()}
+                </div>
             );
         }
-
     }
 
 }
 
 function mapStateToProps(state){
     return {
-        posts: state.data.posts
+        posts: state.data.posts,
+        authenticated: state.auth.authenticated
     }
 }
 
