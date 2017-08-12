@@ -3,7 +3,7 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux';
 import {fetchPosts} from "../../../actions/post"
 import { Link } from 'react-router-dom'
-
+import { Row, Col } from 'antd';
 
 class PostIndexPage extends Component{
 
@@ -17,13 +17,32 @@ class PostIndexPage extends Component{
         const content = post.content;
 
         return (
-            <tr key={id}>
-                <td>{title}</td>
-                <td>{content}</td>
-                <td>
-                    <Link to={`/posts/${id}`}>Read More</Link>
-                </td>
-            </tr>
+            <div key={id}>
+                <hr/>
+                <div className="post-block">
+                    <Row>
+                        avatar icon, author name, create time
+                    </Row>
+                    <Row>
+                        <Col span={18} className="post-block-title">
+                            <div>
+                                <Link to={`/posts/${id}`}>{title}</Link>
+                            </div>
+
+                            <div>{content}</div>
+                        </Col>
+                        <Col span={6}>
+                            <div>
+                                picture
+                            </div>
+                        </Col>
+                    </Row>
+
+                    <Row>
+                        tags, views, comments, likes
+                    </Row>
+                </div>
+            </div>
         );
     }
 
@@ -46,20 +65,17 @@ class PostIndexPage extends Component{
             );
         }else{
             return (
-                <div>
-                    <table className="table table-hover">
-                        <thead>
-                        <tr>
-                            <th>title</th>
-                            <th>content</th>
-                            <th>detail</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                            {this.props.posts.data.map(this.renderPost)}
-                        </tbody>
-                    </table>
-                    {this.renderButton()}
+                <div className="row">
+                    <div className="col-md-8">
+                        {this.props.posts.data.map(this.renderPost)}
+                        <hr/>
+                        {this.renderButton()}
+                    </div>
+
+                    <div className="col-md-4" >
+                        side
+                    </div>
+
                 </div>
             );
         }

@@ -4,6 +4,7 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux';
 import { loginUser, clearAuthErr } from '../actions/index'
 
+
 class LoginForm extends Component{
     componentWillMount(){
         this.props.clearAuthErr();
@@ -45,7 +46,7 @@ class LoginForm extends Component{
         const { handleSubmit } = this.props;
 
         return(
-            <form onSubmit = {handleSubmit(this.onSubmit.bind(this))}>
+            <form onSubmit = {handleSubmit(this.onSubmit.bind(this))} className="login-form">
                 <Field
                     label="Email:"
                     name="email"

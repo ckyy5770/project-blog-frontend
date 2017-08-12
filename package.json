@@ -19,6 +19,7 @@
   },
   "homepage": "https://github.com/iloveyoukcl5770/project-blog-frontend#readme",
   "dependencies": {
+    "antd": "^2.12.6",
     "axios": "^0.16.2",
     "babel-preset-stage-1": "^6.24.1",
     "history": "^4.6.3",

@@ -21,6 +21,11 @@ import PostNewPage from './components/pages/post/PostNewPage';
 import PostEditPage from './components/pages/post/PostEditPage';
 import CommentEditPage from './components/pages/post/CommentEditPage';
 
+import { Row, Col } from 'antd';
+
+import {styleContent} from "../style/style";
+
+
 import RequireAuth from './components/RequireAuth';
 
 import { AUTH_USER} from "./actions/index";
@@ -30,21 +35,21 @@ const store = createStoreWithMiddleware(rootReducer);
 
 const token = localStorage.getItem('token');
 if(token){
-	store.dispatch({ type: AUTH_USER});
+    store.dispatch({ type: AUTH_USER});
 }
 
 const App = () => {
-	return (
+    return (
 		<Provider store={store}>
 			<Router history={history}>
-				<div className="row">
-					<div className="col-md-12">
-						<div className="row">
-							<NavigationBar />
-						</div>
-						<div className="row">
-							<Switch>
+				<div>
+					<div>
+						<NavigationBar />
+					</div>
 
+					<div className="container">
+						<div style={styleContent}>
+							<Switch>
 								<Route path="/posts/new" component={PostNewPage}/>
 								<Route path="/posts/:postId/comments/:commentId" component={CommentEditPage}/>
 								<Route path="/posts/:postId/edit" component={PostEditPage}/>
@@ -57,13 +62,16 @@ const App = () => {
 								<Route path="/logout" component={LogoutPage}/>
 								<Route path="/" component={IndexPage} />
 							</Switch>
-
 						</div>
 					</div>
+
+					<div>footer</div>
 				</div>
+
+
 			</Router>
 		</Provider>
-	)
+    )
 };
 
-ReactDOM.render(<App />, document.querySelector('.container'));
+ReactDOM.render(<App />, document.querySelector('.react-view'));

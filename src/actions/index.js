@@ -18,7 +18,7 @@ export function loginUser({email, password}){
                 // dispatch authenticate action
                 dispatch({ type: AUTH_USER });
                 // redirect
-                history.push('/');
+                history.push('/posts');
             })
             .catch(response =>{
                 // request fail
@@ -42,7 +42,7 @@ export function signupUser({email, password}){
                 // request success
                 localStorage.setItem('token', response.data.token);
                 dispatch({ type: AUTH_USER });
-                history.push('/');
+                history.push('/posts');
             })
             .catch(response =>{
                 dispatch(authErr(`signup failed. ${response.data.error}`))
