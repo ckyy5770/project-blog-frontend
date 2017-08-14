@@ -3,7 +3,8 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux';
 import {fetchPosts} from "../../../actions/post"
 import { Link } from 'react-router-dom'
-import { Row, Col } from 'antd';
+import { Row, Col, Icon } from 'antd';
+import moment from 'moment';
 
 class PostIndexPage extends Component{
 
@@ -12,16 +13,19 @@ class PostIndexPage extends Component{
     }
 
     renderPost(post){
+
         const id = post._id;
         const title = post.title;
         const content = post.content;
+        const createdAtParsed = moment(post.createdAt, 'YYYY-MM-DDTHH:mm:ss.SSSZZ');
+        console.log(post);
 
         return (
             <div key={id}>
                 <hr/>
                 <div className="post-block">
                     <Row>
-                        avatar icon, author name, create time
+                        <Icon type="user" /> <span>{post.author.nickName}</span> <span>{createdAtParsed.format(' h:mm A, MMM Do')}</span>
                     </Row>
                     <Row>
                         <Col span={18} className="post-block-title">
@@ -29,17 +33,20 @@ class PostIndexPage extends Component{
                                 <Link to={`/posts/${id}`}>{title}</Link>
                             </div>
 
-                            <div>{content}</div>
+                            <div>{content.substring(0, 200)}...</div>
                         </Col>
                         <Col span={6}>
-                            <div>
-                                picture
+                            <div className="crop">
+                                <img src={post.pics[0]} className="img-rounded" width="200" height="150"></img>
                             </div>
                         </Col>
                     </Row>
 
                     <Row>
-                        tags, views, comments, likes
+                        <Icon type="tag-o" /><span>&nbsp;{post.tags}&nbsp;</span>
+                        <Icon type="eye-o" /><span>&nbsp;{post.views}&nbsp;</span>
+                        <Icon type="message" /><span>&nbsp;{post.comments}&nbsp;</span>
+                        <Icon type="like-o" /><span>&nbsp;{post.likes}&nbsp;</span>
                     </Row>
                 </div>
             </div>
@@ -67,7 +74,7 @@ class PostIndexPage extends Component{
             return (
                 <div className="row">
                     <div className="col-md-8">
-                        {this.props.posts.data.map(this.renderPost)}
+                        {this.props.posts.data.map(this.renderPost.bind(this))}
                         <hr/>
                         {this.renderButton()}
                     </div>
@@ -86,7 +93,8 @@ class PostIndexPage extends Component{
 function mapStateToProps(state){
     return {
         posts: state.data.posts,
-        authenticated: state.auth.authenticated
+        authenticated: state.auth.authenticated,
+        user: state.auth.user
     }
 }
 

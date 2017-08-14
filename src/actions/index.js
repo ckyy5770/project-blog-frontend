@@ -14,9 +14,9 @@ export function loginUser({email, password}){
             .then(response =>{
                 // request success
                 // save token to local storage
-                localStorage.setItem('token', response.data.token);
+                localStorage.setItem('user', JSON.stringify(response.data.user));
                 // dispatch authenticate action
-                dispatch({ type: AUTH_USER });
+                dispatch({ type: AUTH_USER, payload: response.data.user});
                 // redirect
                 history.push('/posts');
             })
@@ -29,19 +29,19 @@ export function loginUser({email, password}){
 }
 
 export function logoutUser(){
-    localStorage.removeItem('token');
+    localStorage.removeItem('user');
     return {
         type: UNAUTH_USER
     }
 }
 
-export function signupUser({email, password}){
+export function signupUser({email, password, nickName}){
     return function(dispatch){
-        axios.post(`${API_URL}/signup`, {email:email, password:password})
+        axios.post(`${API_URL}/signup`, {email:email, password:password, nickName:nickName})
             .then(response =>{
                 // request success
-                localStorage.setItem('token', response.data.token);
-                dispatch({ type: AUTH_USER });
+                localStorage.setItem('user', JSON.stringify(response.data.user));
+                dispatch({ type: AUTH_USER, payload: response.data.user});
                 history.push('/posts');
             })
             .catch(response =>{

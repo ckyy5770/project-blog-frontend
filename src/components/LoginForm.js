@@ -69,7 +69,7 @@ class LoginForm extends Component{
 function validateForm(values){
     const errors={};
 
-    if(!values.email){
+   if(!values.email){
         errors.email = "enter a email";
     }
 

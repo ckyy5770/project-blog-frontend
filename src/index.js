@@ -33,9 +33,10 @@ import { AUTH_USER} from "./actions/index";
 const createStoreWithMiddleware = applyMiddleware(reduxThunk, reduxPromise)(createStore);
 const store = createStoreWithMiddleware(rootReducer);
 
-const token = localStorage.getItem('token');
-if(token){
-    store.dispatch({ type: AUTH_USER});
+const user = localStorage.getItem('user');
+
+if(user){
+    store.dispatch({ type: AUTH_USER, payload: JSON.parse(user)});
 }
 
 const App = () => {

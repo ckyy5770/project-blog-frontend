@@ -36,7 +36,7 @@ class SignupForm extends Component{
 
     onSubmit(values){
         if(values){
-            this.props.signupUser({email: values.email, password: values.password});
+            this.props.signupUser({email: values.email, password: values.password, nickName: values.nickName});
         }
 
     }
@@ -46,6 +46,12 @@ class SignupForm extends Component{
 
         return(
             <form onSubmit = {handleSubmit(this.onSubmit.bind(this))}>
+                <Field
+                    label="Nick Name:"
+                    name="nickName"
+                    type="text"
+                    component={this.renderField}
+                />
                 <Field
                     label="Email:"
                     name="email"
@@ -65,7 +71,7 @@ class SignupForm extends Component{
                     component={this.renderField}
                 />
                 {this.renderAuthMessage()}
-                <button action="submit" className="btn btn-primary">Log in</button>
+                <button action="submit" className="btn btn-primary">Sign up</button>
             </form>
         );
     }
@@ -74,6 +80,10 @@ class SignupForm extends Component{
 function validateForm(values){
     const errors={};
     console.log(values);
+
+    if(!values.nickName){
+        errors.nickName = "enter a nick name";
+    }
     if(!values.email){
         errors.email = "enter a email";
     }

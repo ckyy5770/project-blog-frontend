@@ -9,7 +9,7 @@ class NavigationBar extends Component{
     renderUserDropDown(){
         if(this.props.authenticated){
             return (
-                <Menu.SubMenu title="Welcome Back!">
+                <Menu.SubMenu title={`Welcome ${this.props.user.nickName}!`}>
                     <Menu.Item>
                         <Link to="/profile"> My Profile </Link>
                     </Menu.Item>
@@ -55,7 +55,8 @@ class NavigationBar extends Component{
 
 function mapStateToProps(state){
     return {
-        authenticated: state.auth.authenticated
+        authenticated: state.auth.authenticated,
+        user: state.auth.user
     };
 }
 

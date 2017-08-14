@@ -51,7 +51,6 @@ export function createPost(post){
     return function(dispatch){
         axios.post(`${API_URL}/posts`, post)
             .then(response =>{
-                console.log(response);
                 // request success
                 dispatch({ type: CREATE_POST });
                 // redirect
@@ -75,7 +74,6 @@ export function updatePost(post, id) {
     return function(dispatch){
         axios.put(`${API_URL}/posts/${id}`, post)
             .then(response =>{
-                console.log(response);
                 // request success
                 dispatch({ type: UPDATE_POST, payload: response });
                 // redirect

@@ -63,7 +63,9 @@ class PostNewForm extends Component{
 
     onSubmit(values){
         if(values){
-            this.props.createPost({title: values.title, content: values.content});
+            // parse tag to array
+            const tags = values.tag.split(',');
+            this.props.createPost({title: values.title, content: values.content, tags: tags});
         }
     }
 
@@ -85,7 +87,7 @@ class PostNewForm extends Component{
                     component={this.renderField}
                 />
                 <Field
-                    label="Tag:"
+                    label="Tags:"
                     name="tag"
                     type="text"
                     component={this.renderField}

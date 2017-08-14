@@ -16,6 +16,31 @@ class PostShowPage extends Component{
     onDeleteClick(){
         this.props.deletePostById(this.props.match.params.postId);
     }
+    renderTitle(){
+        return(
+            <div>
+                {this.props.show.data.title}
+            </div>
+        )
+    }
+
+    renderContent(){
+        return(
+            <div>
+                {this.props.show.data.content}
+            </div>
+        )
+    }
+
+    renderPostButton(){
+        return (
+            <div>
+                <Link to={`/posts/${this.props.match.params.postId}/edit`} className="btn btn-primary">Edit</Link>
+                <span onClick={this.onDeleteClick.bind(this)} className="btn btn-danger">Delete</span>
+                <Link to={`/posts/`} className="btn btn-primary">Back</Link>
+            </div>
+        )
+    }
 
     render(){
         if(!this.props.show){
@@ -28,11 +53,9 @@ class PostShowPage extends Component{
             return (
                 <div>
                     <div>
-                        {this.props.show.data.title},
-                        {this.props.show.data.content},
-                        <Link to={`/posts/${this.props.match.params.postId}/edit`} className="btn btn-primary">Edit</Link>
-                        <span onClick={this.onDeleteClick.bind(this)} className="btn btn-danger">Delete</span>
-                        <Link to={`/posts/`} className="btn btn-primary">Back</Link>
+                        {this.renderTitle()}
+                        {this.renderContent()}
+                        {this.renderPostButton()}
                     </div>
                     <div>
                         <CommentNewForm postId={this.props.match.params.postId} />
