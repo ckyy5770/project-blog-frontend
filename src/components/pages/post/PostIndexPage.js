@@ -90,7 +90,7 @@ class PostIndexPage extends Component{
             return (
                 <div className="row">
                     <div className="col-md-8">
-                        {this.props.posts.data.map(this.renderPost.bind(this))}
+                        {this.props.posts && this.props.posts.data ? this.props.posts.data.map(this.renderPost.bind(this)) : ""}
                         <hr/>
                         <div style={{textAlign: "center"}}>
                             {this.renderButton()}
