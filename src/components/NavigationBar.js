@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { Menu } from 'antd';
-import { styleNavBar } from '../../style/style';
+import { styleNavBar } from '../style/style';
 
 
 class NavigationBar extends Component{

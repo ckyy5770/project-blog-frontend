@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom';
 import history from '../history';
 import {Button} from 'antd';
 
-import {styleBtnSimple} from '../../style/style';
+import {styleBtnSimple} from '../style/style';
 
 
 class PostNewForm extends Component{
