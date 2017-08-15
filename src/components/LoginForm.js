@@ -65,8 +65,6 @@ class LoginForm extends Component{
     }
 
     render(){
-
-
         return(
             <form>
                 <Field

@@ -44,21 +44,32 @@ class PostShowPage extends Component{
     }
 
     renderPostButton(){
-        return (
-            <div>
-                <Button onClick={this.onEditClick.bind(this)}>
-                    Edit
-                </Button>
-                &nbsp;
-                <Button onClick={this.onBackClick.bind(this)}>
-                    Back
-                </Button>
-                &nbsp;
-                <Button onClick={this.onDeleteClick.bind(this)}>
-                    Delete
-                </Button>
-            </div>
-        )
+        if(this.props.user && this.props.user.id && this.props.user.id === this.props.show.data.author.id){
+            return (
+                <div>
+                    <Button onClick={this.onEditClick.bind(this)}>
+                        Edit
+                    </Button>
+                    &nbsp;
+                    <Button onClick={this.onBackClick.bind(this)}>
+                        Back
+                    </Button>
+                    &nbsp;
+                    <Button onClick={this.onDeleteClick.bind(this)}>
+                        Delete
+                    </Button>
+                </div>
+            )
+        }else{
+            return (
+                <div>
+                    <Button onClick={this.onBackClick.bind(this)}>
+                        Back
+                    </Button>
+                </div>
+            )
+        }
+
     }
 
     render(){
@@ -92,7 +103,8 @@ class PostShowPage extends Component{
 
 function mapStateToProps(state){
     return {
-        show: state.data.show
+        show: state.data.show,
+        user: state.auth.user
     }
 }
 

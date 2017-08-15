@@ -25,31 +25,42 @@ class CommentShowArea extends Component{
         this.props.deleteCommentById(this.props.postId, commentId);
     }
 
-    renderButton(commentId){
-        return (
-            <div>
-                <Button onClick={() => this.onEditClick(commentId)}>
-                    Edit
-                </Button>
-                &nbsp;
-                <Button onClick={() => this.onDeleteClick(commentId)}>
-                    Delete
-                </Button>
-            </div>
-        )
+    renderButton(commentId, commentAuthor){
+        if(this.props.user && this.props.user.id && this.props.user.id === commentAuthor.id){
+            return (
+                <div>
+                    <Button onClick={() => this.onEditClick(commentId)}>
+                        Edit
+                    </Button>
+                    &nbsp;
+                    <Button onClick={() => this.onDeleteClick(commentId)}>
+                        Delete
+                    </Button>
+                </div>
+            )
+        }else{
+            return(
+                <div>
+                    <Button>
+                        Like
+                    </Button>
+                </div>
+            )
+        }
+
     }
 
     renderComment(comment){
         const id = comment._id;
-        const author = comment.author.nickName;
+        const author = comment.author;
         const content = comment.content;
 
         return (
             <tr key={id}>
-                <td>{author}</td>
+                <td>{author.nickName}</td>
                 <td>{content}</td>
                 <td>
-                    {this.renderButton(id)}
+                    {this.renderButton(id, author)}
                 </td>
             </tr>
         );
@@ -86,7 +97,8 @@ class CommentShowArea extends Component{
 
 function mapStateToProps(state){
     return {
-        comments: state.data.comments
+        comments: state.data.comments,
+        user: state.auth.user
     }
 }
 
