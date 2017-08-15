@@ -23,7 +23,7 @@ import Footer from './components/Footer';
 
 import { Row, Col } from 'antd';
 
-import {styleContent} from "./style/style";
+import {styleContent} from "./style";
 
 
 import RequireAuth from './components/RequireAuth';
@@ -45,12 +45,12 @@ class App extends Component {
           <Provider store={store}>
               <Router history={history}>
                   <div>
-                      <div>
+                      <Row>
                           <NavigationBar />
-                      </div>
+                      </Row>
 
-                      <div className="container">
-                          <div style={styleContent}>
+                      <Row>
+                          <Col xs={{offset:1, span: 22}} sm={{offset:2, span: 20}} md={{offset:3,span:18}} lg={{offset:4,span:16}}  style={styleContent}>
                               <Switch>
                                   <Route path="/posts/new" component={PostNewPage}/>
                                   <Route path="/posts/:postId/comments/:commentId" component={CommentEditPage}/>
@@ -64,12 +64,12 @@ class App extends Component {
                                   <Route path="/logout" component={LogoutPage}/>
                                   <Route path="/" component={IndexPage} />
                               </Switch>
-                          </div>
-                      </div>
+                          </Col>
+                      </Row>
 
-                      <div>
+                      <Row>
                           <Footer />
-                      </div>
+                      </Row>
                   </div>
 
 

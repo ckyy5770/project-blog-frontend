@@ -3,7 +3,7 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux';
 import {fetchPosts} from "../../../actions/post"
 import { Link } from 'react-router-dom'
-import { Row, Col, Icon, Button} from 'antd';
+import { Row, Col, Icon, Button, Layout} from 'antd';
 import moment from 'moment';
 import history from '../../../history';
 
@@ -15,6 +15,17 @@ class PostIndexPage extends Component{
 
     onNewPostClick(){
         history.push("/posts/new");
+    }
+
+    renderPostMeta(post){
+        return (
+            <div>
+                <Icon type="tag-o" /><span>&nbsp;{post.tags}&nbsp;</span>
+                <Icon type="eye-o" /><span>&nbsp;{post.views}&nbsp;</span>
+                <Icon type="message" /><span>&nbsp;{post.comments}&nbsp;</span>
+                <Icon type="like-o" /><span>&nbsp;{post.likes}&nbsp;</span>
+            </div>
+        )
     }
 
     renderPost(post){
@@ -32,25 +43,22 @@ class PostIndexPage extends Component{
                         <Icon type="user" /> <span>{post.author.nickName}</span> <span>{createdAtParsed.format(' h:mm A, MMM Do')}</span>
                     </Row>
                     <Row>
-                        <Col span={18} className="post-block-title">
+                        <Col xs={24} sm={18} md={18} lg={18} className="post-block-title">
                             <div>
                                 <Link to={`/posts/${id}`}>{title}</Link>
                             </div>
 
                             <div>{content.substring(0, 200)}...</div>
                         </Col>
-                        <Col span={6}>
-                            <div className="crop">
-                                <img src={post.pics[0]} className="img-rounded" width="200" height="150"></img>
+                        <Col xs={0} sm={6} md={6} lg={6}>
+                            <div>
+                                <img src={post.pics[0]} width="100%"></img>
                             </div>
                         </Col>
                     </Row>
-
+                        {this.renderPostMeta(post)}
                     <Row>
-                        <Icon type="tag-o" /><span>&nbsp;{post.tags}&nbsp;</span>
-                        <Icon type="eye-o" /><span>&nbsp;{post.views}&nbsp;</span>
-                        <Icon type="message" /><span>&nbsp;{post.comments}&nbsp;</span>
-                        <Icon type="like-o" /><span>&nbsp;{post.likes}&nbsp;</span>
+
                     </Row>
                 </div>
             </div>
@@ -88,18 +96,20 @@ class PostIndexPage extends Component{
             );
         }else{
             return (
-                <div className="row">
-                    <div className="col-md-8">
-                        {this.props.posts && this.props.posts.data ? this.props.posts.data.map(this.renderPost.bind(this)) : ""}
-                        <hr/>
-                        <div style={{textAlign: "center"}}>
-                            {this.renderButton()}
-                        </div>
-                    </div>
+                <div>
+                    <Row>
+                        <Col xs={24} sm={24} md={16} lg={16}>
+                            {this.props.posts && this.props.posts.data ? this.props.posts.data.map(this.renderPost.bind(this)) : ""}
+                            <hr/>
+                            <div style={{textAlign: "center"}}>
+                                {this.renderButton()}
+                            </div>
+                        </Col>
 
-                    <div className="col-md-4" >
-                        {this.renderSider()}
-                    </div>
+                        <Col xs={0} sm={0} md={8} lg={8}>
+                            {this.renderSider()}
+                        </Col>
+                    </Row>
                 </div>
             );
         }

@@ -2,9 +2,10 @@ import React, { Component } from 'react';
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux';
 import { fetchCommentsByPostId, deleteCommentById } from "../actions/comment"
-import { Link } from 'react-router-dom'
 import history from '../history';
-import { Button } from 'antd';
+import { Button, Row, Col, Icon } from 'antd';
+import moment from 'moment';
+import {styleCommentMeta} from "../style" ;
 
 
 class CommentShowArea extends Component{
@@ -56,10 +57,49 @@ class CommentShowArea extends Component{
 
     }
 
+    renderCommentMeta(comment){
+        const createdAtParsed = moment(comment.createdAt, 'YYYY-MM-DDTHH:mm:ss.SSSZZ');
+        return (
+            <div style={styleCommentMeta}>
+                <Icon type="user" /><span>&nbsp;{comment.author.nickName}&nbsp;</span>
+                &nbsp;
+                <span>{createdAtParsed.format('MM/DD/YYYY h:mm A')}</span>
+            </div>
+        )
+    }
+    renderCommentButton(comment) {
+        return (
+            <div>
+                <Icon type="like-o" /><span>&nbsp;{comment.likes}&nbsp;</span>
+            </div>
+        )
+
+    }
+
     renderComment(comment){
-        const id = comment._id;
         const author = comment.author;
+        const id = comment._id;
         const content = comment.content;
+
+        return (
+            <div key={id}>
+                <hr/>
+                <div>
+                    <Row>
+                        {this.renderCommentMeta(comment)}
+
+                    </Row>
+                    <Row>
+                        <Col>
+                            <div>{content}</div>
+                        </Col>
+                    </Row>
+                    <Row>
+                        {this.renderCommentButton(comment)}
+                    </Row>
+                </div>
+            </div>
+        );
 
         return (
             <tr key={id}>
@@ -82,18 +122,12 @@ class CommentShowArea extends Component{
         }else{
             return (
                 <div>
-                    <table className="table table-hover">
-                        <thead>
-                        <tr>
-                            <th>author</th>
-                            <th>content</th>
-                            <th>link</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        {this.props.comments.data.map(this.renderComment)}
-                        </tbody>
-                    </table>
+                    <Row>
+                        <Col>
+                            {this.props.comments && this.props.comments.data ? this.props.comments.data.map(this.renderComment.bind(this)) : ""}
+                            <hr/>
+                        </Col>
+                    </Row>
                 </div>
             );
         }

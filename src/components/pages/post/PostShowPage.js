@@ -5,8 +5,10 @@ import { fetchPostById, deletePostById } from "../../../actions/post"
 import { Link } from 'react-router-dom'
 import CommentNewForm from '../../CommentNewForm';
 import CommentShowArea from '../../CommentShowArea';
-import { Button } from 'antd';
+import { Button, Icon, Row, Col} from 'antd';
 import history from '../../../history';
+import moment from 'moment';
+import {styleShowTitle, styleShowMeta, styleShowButton, styleShowContent} from '../../../style'
 
 
 class PostShowPage extends Component{
@@ -29,15 +31,31 @@ class PostShowPage extends Component{
 
     renderTitle(){
         return(
-            <div>
+            <div style={styleShowTitle}>
                 {this.props.show.data.title}
+            </div>
+        )
+    }
+
+    renderPostMeta(){
+        const createdAtParsed = moment(this.props.show.data.createdAt, 'YYYY-MM-DDTHH:mm:ss.SSSZZ');
+        return (
+            <div style={styleShowMeta}>
+                <Icon type="user" /><span>&nbsp;{this.props.show.data.author.nickName}&nbsp;</span>
+                &nbsp;
+                <span>{createdAtParsed.format('MM/DD/YYYY h:mm A')}</span>
+                <br/>
+                <Icon type="tag-o" /><span>&nbsp;{this.props.show.data.tags}&nbsp;</span>
+                <Icon type="eye-o" /><span>&nbsp;{this.props.show.data.views}&nbsp;</span>
+                <Icon type="message" /><span>&nbsp;{this.props.show.data.comments}&nbsp;</span>
+                <Icon type="like-o" /><span>&nbsp;{this.props.show.data.likes}&nbsp;</span>
             </div>
         )
     }
 
     renderContent(){
         return(
-            <div>
+            <div style={styleShowContent}>
                 {this.props.show.data.content}
             </div>
         )
@@ -46,7 +64,7 @@ class PostShowPage extends Component{
     renderPostButton(){
         if(this.props.user && this.props.user.id && this.props.user.id === this.props.show.data.author.id){
             return (
-                <div>
+                <div style={styleShowButton}>
                     <Button onClick={this.onEditClick.bind(this)}>
                         Edit
                     </Button>
@@ -62,7 +80,7 @@ class PostShowPage extends Component{
             )
         }else if(this.props.user && this.props.user.id && this.props.user.id !== this.props.show.data.author.id){
             return (
-                <div>
+                <div style={styleShowButton}>
                     <Button>
                         Like
                     </Button>
@@ -93,20 +111,22 @@ class PostShowPage extends Component{
             );
         }else{
             return (
-                <div>
-                    <div>
-                        {this.renderTitle()}
-                        {this.renderContent()}
-                        {this.renderPostButton()}
-                    </div>
-                    <div>
-                        <CommentNewForm postId={this.props.match.params.postId} />
-                    </div>
-                    <div>
-                        Todo: styling here
-                        <CommentShowArea postId={this.props.match.params.postId} />
-                    </div>
-                </div>
+                <Row>
+                    <Col offset={4} span={16}>
+                        <div>
+                            {this.renderTitle()}
+                            {this.renderPostMeta()}
+                            {this.renderContent()}
+                            {this.renderPostButton()}
+                        </div>
+                        <div>
+                            <CommentNewForm postId={this.props.match.params.postId} />
+                        </div>
+                        <div>
+                            <CommentShowArea postId={this.props.match.params.postId} />
+                        </div>
+                    </Col>
+                </Row>
             );
         }
     }
