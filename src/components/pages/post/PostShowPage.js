@@ -112,7 +112,7 @@ class PostShowPage extends Component{
         }else{
             return (
                 <Row>
-                    <Col offset={4} span={16}>
+                    <Col>
                         <div>
                             {this.renderTitle()}
                             {this.renderPostMeta()}
