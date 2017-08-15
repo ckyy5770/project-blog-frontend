@@ -4,6 +4,10 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux';
 import { createPost, clearDataErr } from "../actions/post";
 import { Link } from 'react-router-dom';
+import history from '../history';
+import {Button} from 'antd';
+
+import {styleBtnSimple} from '../../style/style';
 
 
 class PostNewForm extends Component{
@@ -14,6 +18,21 @@ class PostNewForm extends Component{
 
     componentWillMount(){
         this.props.clearDataErr();
+    }
+
+    onSubmit(values){
+        if(values){
+            // parse tag to array
+            let tags = [];
+            if(values.tag){
+                tags = values.tag.split(',');
+            }
+            this.props.createPost({title: values.title, content: values.content, tags: tags});
+        }
+    }
+
+    onCancelClick(){
+        history.push('/posts');
     }
 
     renderField(field){
@@ -51,29 +70,22 @@ class PostNewForm extends Component{
         }
     }
 
+
     renderButton(){
+        const { handleSubmit } = this.props;
         return(
             <div>
-                <button action="submit" className="btn btn-primary">Post</button>
-                <Link to="/posts" className="btn btn-danger">Cancel</Link>
+                <Button onClick={handleSubmit(this.onSubmit.bind(this))}>Submit</Button>
+                &nbsp;
+                <Button onClick={this.onCancelClick.bind(this)}>Cancel</Button>
             </div>
 
         )
     }
 
-    onSubmit(values){
-        if(values){
-            // parse tag to array
-            const tags = values.tag.split(',');
-            this.props.createPost({title: values.title, content: values.content, tags: tags});
-        }
-    }
-
     render(){
-        const { handleSubmit } = this.props;
-
         return(
-            <form onSubmit = {handleSubmit(this.onSubmit.bind(this))}>
+            <form>
                 <Field
                     label="Title:"
                     name="title"

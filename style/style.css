@@ -1,3 +1,7 @@
 .post-block{
     background: white;
 }
+
+.a :hover{
+    color: black;
+}

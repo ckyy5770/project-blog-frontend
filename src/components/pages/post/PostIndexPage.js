@@ -3,13 +3,18 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux';
 import {fetchPosts} from "../../../actions/post"
 import { Link } from 'react-router-dom'
-import { Row, Col, Icon } from 'antd';
+import { Row, Col, Icon, Button} from 'antd';
 import moment from 'moment';
+import history from '../../../history';
 
 class PostIndexPage extends Component{
 
     componentDidMount(){
         this.props.fetchPosts();
+    }
+
+    onNewPostClick(){
+        history.push("/posts/new");
     }
 
     renderPost(post){
@@ -18,7 +23,6 @@ class PostIndexPage extends Component{
         const title = post.title;
         const content = post.content;
         const createdAtParsed = moment(post.createdAt, 'YYYY-MM-DDTHH:mm:ss.SSSZZ');
-        console.log(post);
 
         return (
             <div key={id}>
@@ -57,7 +61,9 @@ class PostIndexPage extends Component{
         if(this.props.authenticated){
             return (
                 <div>
-                    <Link to="/posts/new">New Post</Link>
+                    <Button onClick={this.onNewPostClick.bind(this)}>
+                        New Post
+                    </Button>
                 </div>
             )
         }

@@ -3,11 +3,23 @@ import { Field, reduxForm } from 'redux-form';
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux';
 import { loginUser, clearAuthErr } from '../actions/index'
-
+import history from '../history';
+import { Button } from 'antd';
 
 class LoginForm extends Component{
     componentWillMount(){
         this.props.clearAuthErr();
+    }
+
+    onSubmit(values){
+        if(values){
+            this.props.loginUser({email: values.email, password: values.password});
+        }
+
+    }
+
+    onCancelClick(){
+        history.push('/posts');
     }
 
     renderField(field){
@@ -35,18 +47,28 @@ class LoginForm extends Component{
         }
     }
 
-    onSubmit(values){
-        if(values){
-            this.props.loginUser({email: values.email, password: values.password});
-        }
+    renderButton(){
+        const { handleSubmit } = this.props;
+        return(
+            <div>
+                <Button onClick = {handleSubmit(this.onSubmit.bind(this))} >
+                    Log in
+                </Button>
+                &nbsp;
+                <Button onClick = {this.onCancelClick.bind(this)}>
+                    Cancel
+                </Button>
 
+
+            </div>
+        )
     }
 
     render(){
-        const { handleSubmit } = this.props;
+
 
         return(
-            <form onSubmit = {handleSubmit(this.onSubmit.bind(this))} className="login-form">
+            <form>
                 <Field
                     label="Email:"
                     name="email"
@@ -60,7 +82,7 @@ class LoginForm extends Component{
                     component={this.renderField}
                 />
                 {this.renderAuthMessage()}
-                <button action="submit" className="btn btn-primary">Log in</button>
+                {this.renderButton()}
             </form>
         );
     }

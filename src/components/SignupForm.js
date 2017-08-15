@@ -3,10 +3,22 @@ import { Field, reduxForm } from 'redux-form';
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux';
 import { signupUser, clearAuthErr } from '../actions/index'
+import history from '../history';
+import { Button } from 'antd';
 
 class SignupForm extends Component{
     componentWillMount(){
         this.props.clearAuthErr();
+    }
+
+    onSubmit(values){
+        if(values){
+            this.props.signupUser({email: values.email, password: values.password, nickName: values.nickName});
+        }
+    }
+
+    onCancelClick(){
+        history.push('/posts');
     }
 
     renderField(field){
@@ -34,18 +46,26 @@ class SignupForm extends Component{
         }
     }
 
-    onSubmit(values){
-        if(values){
-            this.props.signupUser({email: values.email, password: values.password, nickName: values.nickName});
-        }
-
+    renderButton(){
+        const { handleSubmit } = this.props;
+        return(
+            <div>
+                <Button onClick={handleSubmit(this.onSubmit.bind(this))}>
+                    Sign up
+                </Button>
+                &nbsp;
+                <Button onClick={this.onCancelClick.bind(this)}>
+                    Cancel
+                </Button>
+            </div>
+        )
     }
 
     render(){
-        const { handleSubmit } = this.props;
+
 
         return(
-            <form onSubmit = {handleSubmit(this.onSubmit.bind(this))}>
+            <form>
                 <Field
                     label="Nick Name:"
                     name="nickName"
@@ -71,7 +91,7 @@ class SignupForm extends Component{
                     component={this.renderField}
                 />
                 {this.renderAuthMessage()}
-                <button action="submit" className="btn btn-primary">Sign up</button>
+                {this.renderButton()}
             </form>
         );
     }

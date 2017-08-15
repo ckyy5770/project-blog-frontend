@@ -3,8 +3,8 @@ import { Field, reduxForm } from 'redux-form';
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux';
 import { updatePost, clearDataErr } from "../actions/post";
-import { Link } from 'react-router-dom';
-
+import history from '../history';
+import { Button } from 'antd';
 
 class PostEditForm extends Component{
     constructor(){
@@ -14,6 +14,21 @@ class PostEditForm extends Component{
 
     componentWillMount(){
         this.props.clearDataErr();
+    }
+
+    onSubmit(values){
+        if(values){
+            // parse tag to array
+            let tags = [];
+            if(!values.tag){
+                tags = values.tag.split(',');
+            }
+            this.props.updatePost({title: values.title, content: values.content, tags: tags}, this.props.postId);
+        }
+    }
+
+    onCancelClick(){
+        history.push(`/posts/${this.props.postId}`);
     }
 
     renderField(field){
@@ -52,27 +67,20 @@ class PostEditForm extends Component{
     }
 
     renderButton(){
+        const { handleSubmit } = this.props;
         return(
             <div>
-                <button action="submit" className="btn btn-primary">Update</button>
-                <Link to={`/posts/${this.props.postId}`} className="btn btn-primary">Cancel</Link>
+                <Button onClick={handleSubmit(this.onSubmit.bind(this))}>Update</Button>
+                &nbsp;
+                <Button onClick={this.onCancelClick.bind(this)}>Cancel</Button>
             </div>
 
         )
     }
 
-    onSubmit(values){
-        if(values){
-            this.props.updatePost({title: values.title, content: values.content}, this.props.postId);
-        }
-    }
-
     render(){
-        console.log(this.props.initialValues);
-        const { handleSubmit } = this.props;
-
         return(
-            <form onSubmit = {handleSubmit(this.onSubmit.bind(this))}>
+            <form>
                 <Field
                     label="Title:"
                     name="title"

@@ -3,7 +3,8 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux';
 import { fetchCommentsByPostId, deleteCommentById } from "../actions/comment"
 import { Link } from 'react-router-dom'
-
+import history from '../history';
+import { Button } from 'antd';
 
 
 class CommentShowArea extends Component{
@@ -16,13 +17,31 @@ class CommentShowArea extends Component{
         this.props.fetchCommentsByPostId(this.props.postId);
     }
 
+    onEditClick(commentId){
+        history.push(`/posts/${this.props.postId}/comments/${commentId}/edit`);
+    }
+
     onDeleteClick(commentId){
         this.props.deleteCommentById(this.props.postId, commentId);
     }
 
+    renderButton(commentId){
+        return (
+            <div>
+                <Button onClick={() => this.onEditClick(commentId)}>
+                    Edit
+                </Button>
+                &nbsp;
+                <Button onClick={() => this.onDeleteClick(commentId)}>
+                    Delete
+                </Button>
+            </div>
+        )
+    }
+
     renderComment(comment){
         const id = comment._id;
-        const author = comment.author.id;
+        const author = comment.author.nickName;
         const content = comment.content;
 
         return (
@@ -30,8 +49,7 @@ class CommentShowArea extends Component{
                 <td>{author}</td>
                 <td>{content}</td>
                 <td>
-                    <Link className="btn btn-primary" to={`/posts/${this.props.postId}/comments/${id}/edit`}>Edit</Link>
-                    <span className="btn btn-danger" onClick={() => this.onDeleteClick(id)}>Delete</span>
+                    {this.renderButton(id)}
                 </td>
             </tr>
         );

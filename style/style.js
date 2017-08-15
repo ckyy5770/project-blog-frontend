@@ -10,3 +10,7 @@ export const styleContent = {
 export const styleNavBar = {
     padding: "0% 10%"
 };
+
+export const styleBtnSimple = {
+    padding: "0 0 0 5em"
+}

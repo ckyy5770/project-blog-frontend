@@ -66,7 +66,7 @@ const App = () => {
 						</div>
 					</div>
 
-					<div>footer</div>
+					<div></div>
 				</div>
 
 

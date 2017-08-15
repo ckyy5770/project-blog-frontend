@@ -5,6 +5,8 @@ import { fetchPostById, deletePostById } from "../../../actions/post"
 import { Link } from 'react-router-dom'
 import CommentNewForm from '../../CommentNewForm';
 import CommentShowArea from '../../CommentShowArea';
+import { Button } from 'antd';
+import history from '../../../history';
 
 
 class PostShowPage extends Component{
@@ -13,9 +15,18 @@ class PostShowPage extends Component{
         this.props.fetchPostById(this.props.match.params.postId);
     }
 
+    onEditClick(){
+        history.push(`/posts/${this.props.match.params.postId}/edit`);
+    }
+
     onDeleteClick(){
         this.props.deletePostById(this.props.match.params.postId);
     }
+
+    onBackClick(){
+        history.push(`/posts/`);
+    }
+
     renderTitle(){
         return(
             <div>
@@ -35,9 +46,17 @@ class PostShowPage extends Component{
     renderPostButton(){
         return (
             <div>
-                <Link to={`/posts/${this.props.match.params.postId}/edit`} className="btn btn-primary">Edit</Link>
-                <span onClick={this.onDeleteClick.bind(this)} className="btn btn-danger">Delete</span>
-                <Link to={`/posts/`} className="btn btn-primary">Back</Link>
+                <Button onClick={this.onEditClick.bind(this)}>
+                    Edit
+                </Button>
+                &nbsp;
+                <Button onClick={this.onBackClick.bind(this)}>
+                    Back
+                </Button>
+                &nbsp;
+                <Button onClick={this.onDeleteClick.bind(this)}>
+                    Delete
+                </Button>
             </div>
         )
     }

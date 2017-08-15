@@ -5,7 +5,8 @@ import { connect } from 'react-redux';
 import { clearDataErr } from "../actions/post";
 import { createComment } from "../actions/comment"
 import { Link } from 'react-router-dom';
-
+import history from '../history';
+import { Button } from 'antd';
 
 class CommentNewForm extends Component{
     constructor(){
@@ -44,9 +45,12 @@ class CommentNewForm extends Component{
     }
 
     renderButton(){
+        const { handleSubmit } = this.props;
         return(
             <div>
-                <button action="submit" className="btn btn-primary">Submit</button>
+                <Button onClick={handleSubmit(this.onSubmit.bind(this))}>
+                    Submit
+                </Button>
             </div>
 
         )
@@ -59,10 +63,9 @@ class CommentNewForm extends Component{
     }
 
     render(){
-        const { handleSubmit } = this.props;
 
         return(
-            <form onSubmit = {handleSubmit(this.onSubmit.bind(this))}>
+            <form>
                 <Field
                     label="Leave you comment:"
                     name="content"

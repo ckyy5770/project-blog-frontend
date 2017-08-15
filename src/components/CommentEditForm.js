@@ -5,7 +5,8 @@ import { connect } from 'react-redux';
 import { clearDataErr } from "../actions/post";
 import { updateComment } from "../actions/comment"
 import { Link } from 'react-router-dom';
-
+import history from '../history';
+import { Button } from 'antd';
 
 class CommentEditForm extends Component{
     constructor(){
@@ -15,6 +16,16 @@ class CommentEditForm extends Component{
 
     componentWillMount(){
         this.props.clearDataErr();
+    }
+
+    onSubmit(values){
+        if(values){
+            this.props.updateComment({content: values.content}, this.props.postId, this.props.commentId);
+        }
+    }
+
+    onCancelClick(){
+        history.push(`/posts/${this.props.initialValues.postId}`)
     }
 
     renderField(field){
@@ -44,27 +55,26 @@ class CommentEditForm extends Component{
     }
 
     renderButton(){
+        const { handleSubmit } = this.props;
         return(
             <div>
-                <button action="submit" className="btn btn-primary">Submit</button>
+                <Button onClick = {handleSubmit(this.onSubmit.bind(this))}>
+                    Update
+                </Button>
+                &nbsp;
+                <Button onClick = {this.onCancelClick.bind(this)}>
+                    Cancel
+                </Button>
             </div>
 
         )
     }
 
-    onSubmit(values){
-        if(values){
-            this.props.updateComment({content: values.content}, this.props.postId, this.props.commentId);
-        }
-    }
-
     render(){
-        const { handleSubmit } = this.props;
-
         return(
-            <form onSubmit = {handleSubmit(this.onSubmit.bind(this))}>
+            <form>
                 <Field
-                    label="Edit you comment:"
+                    label="Edit your comment:"
                     name="content"
                     type="text"
                     component={this.renderField}
@@ -85,7 +95,6 @@ function mapStateToProps(state){
     return {
         postErrorMessage: state.data.error,
         initialValues: state.data.showComment.data
-
     };
 }
 
