@@ -60,6 +60,18 @@ class PostShowPage extends Component{
                     </Button>
                 </div>
             )
+        }else if(this.props.user && this.props.user.id && this.props.user.id !== this.props.show.data.author.id){
+            return (
+                <div>
+                    <Button>
+                        Like
+                    </Button>
+                    &nbsp;
+                    <Button onClick={this.onBackClick.bind(this)}>
+                        Back
+                    </Button>
+                </div>
+            )
         }else{
             return (
                 <div>

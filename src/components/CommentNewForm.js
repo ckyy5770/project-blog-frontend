@@ -18,6 +18,20 @@ class CommentNewForm extends Component{
         this.props.clearDataErr();
     }
 
+    onSubmit(values){
+        if(values){
+            this.props.createComment({content: values.content}, this.props.postId);
+        }
+    }
+
+    onLoginClick(){
+        history.push('/login');
+    }
+
+    onSignupClick(){
+        history.push('/signup');
+    }
+
     renderField(field){
         const {meta: {touched, error}} = field;
         const className = `form-group ${touched && error ? "has-error" : ""}`;
@@ -56,26 +70,40 @@ class CommentNewForm extends Component{
         )
     }
 
-    onSubmit(values){
-        if(values){
-            this.props.createComment({content: values.content}, this.props.postId);
-        }
-    }
 
     render(){
+        if(this.props.user && this.props.user.id){
+            return(
+                <form>
+                    <Field
+                        label="Leave you comment:"
+                        name="content"
+                        type="text"
+                        component={this.renderField}
+                    />
+                    {this.renderDataMessage()}
+                    {this.renderButton()}
+                </form>
+            );
+        }else{
+            return(
+                <div style={{fontSize: ".8em", padding: "5% 5%", textAlign: "center"}}>
+                    Please &nbsp;
+                    <Button onClick={this.onLoginClick.bind(this)}>
+                        Log in
+                    </Button>
+                    &nbsp;
+                    Or
+                    &nbsp;
+                    <Button onClick={this.onSignupClick.bind(this)}>
+                        Sign up
+                    </Button>
+                    &nbsp;
+                    to leave a comment
+                </div>
+            );
+        }
 
-        return(
-            <form>
-                <Field
-                    label="Leave you comment:"
-                    name="content"
-                    type="text"
-                    component={this.renderField}
-                />
-                {this.renderDataMessage()}
-                {this.renderButton()}
-            </form>
-        );
     }
 }
 
@@ -85,7 +113,10 @@ function validateForm(values){
 }
 
 function mapStateToProps(state){
-    return { postErrorMessage: state.data.error};
+    return {
+        postErrorMessage: state.data.error,
+        user: state.auth.user
+    };
 }
 
 function mapDispatchToProps(dispatch){

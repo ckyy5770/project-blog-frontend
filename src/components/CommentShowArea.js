@@ -38,12 +38,18 @@ class CommentShowArea extends Component{
                     </Button>
                 </div>
             )
-        }else{
-            return(
+        }else if(this.props.user && this.props.user.id && this.props.user.id !== commentAuthor.id){
+            return (
                 <div>
                     <Button>
                         Like
                     </Button>
+                </div>
+            )
+        }else{
+            return (
+                <div>
+
                 </div>
             )
         }

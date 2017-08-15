@@ -22,6 +22,10 @@ class LoginForm extends Component{
         history.push('/posts');
     }
 
+    onSignupClick(){
+        history.push('/signup');
+    }
+
     renderField(field){
         const {meta: {touched, error}} = field;
         const className = `form-group ${touched && error ? "has-error" : ""}`;
@@ -51,16 +55,24 @@ class LoginForm extends Component{
         const { handleSubmit } = this.props;
         return(
             <div>
-                <Button onClick = {handleSubmit(this.onSubmit.bind(this))} >
-                    Log in
-                </Button>
-                &nbsp;
-                <Button onClick = {this.onCancelClick.bind(this)}>
-                    Cancel
-                </Button>
-
-
+                <div>
+                    <Button onClick = {handleSubmit(this.onSubmit.bind(this))} >
+                        Log in
+                    </Button>
+                    &nbsp;
+                    <Button onClick = {this.onCancelClick.bind(this)}>
+                        Cancel
+                    </Button>
+                </div>
+                <div style={{padding: '10px 0px'}}>
+                    Create a new account?
+                    &nbsp;
+                    <Button onClick={this.onSignupClick.bind(this)}>
+                        Sign up
+                    </Button>
+                </div>
             </div>
+
         )
     }
 
