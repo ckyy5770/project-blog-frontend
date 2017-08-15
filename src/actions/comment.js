@@ -20,6 +20,7 @@ export function createComment(comment, postId){
                 dispatch({ type: CREATE_COMMENT });
                 // reload current page
                 window.location.reload();
+                //fetchCommentsByPostId(postId);
                 //history.push(`/posts/${postId}`);
             })
             .catch(response =>{

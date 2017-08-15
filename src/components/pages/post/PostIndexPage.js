@@ -69,6 +69,16 @@ class PostIndexPage extends Component{
         }
     }
 
+    renderSider(){
+        return(
+            <div style={{padding: "0px 0 0 20px"}}>
+                <hr />
+
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+            </div>
+        )
+    }
+
     render(){
         if(!this.props.posts){
             return (
@@ -82,13 +92,14 @@ class PostIndexPage extends Component{
                     <div className="col-md-8">
                         {this.props.posts.data.map(this.renderPost.bind(this))}
                         <hr/>
-                        {this.renderButton()}
+                        <div style={{textAlign: "center"}}>
+                            {this.renderButton()}
+                        </div>
                     </div>
 
                     <div className="col-md-4" >
-                        side
+                        {this.renderSider()}
                     </div>
-
                 </div>
             );
         }

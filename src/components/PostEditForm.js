@@ -94,7 +94,7 @@ class PostEditForm extends Component{
                     component={this.renderField}
                 />
                 <Field
-                    label="Tag:"
+                    label="Tag (split by comma):"
                     name="tag"
                     type="text"
                     component={this.renderField}

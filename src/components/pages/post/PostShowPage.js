@@ -103,7 +103,7 @@ class PostShowPage extends Component{
                         <CommentNewForm postId={this.props.match.params.postId} />
                     </div>
                     <div>
-                        Here come comments
+                        Todo: styling here
                         <CommentShowArea postId={this.props.match.params.postId} />
                     </div>
                 </div>

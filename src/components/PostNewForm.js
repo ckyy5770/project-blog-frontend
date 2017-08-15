@@ -99,7 +99,7 @@ class PostNewForm extends Component{
                     component={this.renderField}
                 />
                 <Field
-                    label="Tags:"
+                    label="Tags (split by comma):"
                     name="tag"
                     type="text"
                     component={this.renderField}

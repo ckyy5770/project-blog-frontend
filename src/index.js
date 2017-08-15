@@ -20,6 +20,7 @@ import PostShowPage from './components/pages/post/PostShowPage';
 import PostNewPage from './components/pages/post/PostNewPage';
 import PostEditPage from './components/pages/post/PostEditPage';
 import CommentEditPage from './components/pages/post/CommentEditPage';
+import Footer from './components/Footer';
 
 import { Row, Col } from 'antd';
 
@@ -66,7 +67,9 @@ const App = () => {
 						</div>
 					</div>
 
-					<div></div>
+					<div>
+						<Footer />
+					</div>
 				</div>
 
 
