@@ -92,7 +92,7 @@ class PostShowPage extends Component{
             )
         }else{
             return (
-                <div>
+                <div style={styleShowButton}>
                     <Button onClick={this.onBackClick.bind(this)}>
                         Back
                     </Button>
