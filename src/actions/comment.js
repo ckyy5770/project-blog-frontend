@@ -10,7 +10,7 @@ export const UPDATE_COMMENT = 'UPDATE_COMMENT';
 export const FETCH_COMMENT_BY_ID = 'FETCH_COMMENT_BY_ID';
 export const DELETE_COMMENT_BY_ID = 'DELETE_COMMENT_BY_ID';
 
-const API_URL = 'http://127.0.0.1:6001';
+import {API_URL} from "./axiosConfig"
 
 export function createComment(comment, postId){
     return function(dispatch){

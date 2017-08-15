@@ -1,5 +1,8 @@
 import axios from 'axios';
 
+//export const API_URL = 'http://127.0.0.1:6001';
+export const API_URL = 'https://react-blog-backend.herokuapp.com';
+
 axios.interceptors.request.use(function(config) {
     const user = localStorage.getItem('user');
     if(!user) return config;

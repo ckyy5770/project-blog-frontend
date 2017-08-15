@@ -3,7 +3,7 @@ import './axiosConfig'
 
 import history from '../history'
 
-const API_URL = 'http://127.0.0.1:6001';
+import {API_URL} from "./axiosConfig"
 
 export const FETCH_POSTS = 'FETCH_POSTS';
 export const FETCH_POST_BY_ID = 'FETCH_POST_BY_ID';

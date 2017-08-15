@@ -1,7 +1,7 @@
 import axios from 'axios';
 import history from '../history'
 
-const API_URL = 'http://127.0.0.1:6001';
+import {API_URL} from "./axiosConfig"
 
 export const AUTH_USER = 'AUTH_USER';
 export const UNAUTH_USER = 'UNAUTH_USER';
