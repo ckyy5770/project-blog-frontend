@@ -3,6 +3,9 @@ import './axiosConfig'
 import history from '../history'
 
 import { DATA_ERR } from'./post';
+import {API_URL} from "./axiosConfig"
+
+
 export const CREATE_COMMENT = 'CREATE_COMMENT';
 export const CLEAR_DATA_ERR = 'CLEAR_DATA_ERR';
 export const FETCH_COMMENTS_BY_POSTID = 'FETCH_COMMENTS_BY_POSTID';
@@ -10,7 +13,7 @@ export const UPDATE_COMMENT = 'UPDATE_COMMENT';
 export const FETCH_COMMENT_BY_ID = 'FETCH_COMMENT_BY_ID';
 export const DELETE_COMMENT_BY_ID = 'DELETE_COMMENT_BY_ID';
 
-import {API_URL} from "./axiosConfig"
+
 
 export function createComment(comment, postId){
     return function(dispatch){
