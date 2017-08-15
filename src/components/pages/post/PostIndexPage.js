@@ -3,7 +3,7 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux';
 import {fetchPosts} from "../../../actions/post"
 import { Link } from 'react-router-dom'
-import { Row, Col, Icon, Button, Layout} from 'antd';
+import { Row, Col, Icon, Button} from 'antd';
 import moment from 'moment';
 import history from '../../../history';
 
@@ -91,7 +91,7 @@ class PostIndexPage extends Component{
         if(!this.props.posts){
             return (
                 <div>
-                    LOADING...
+                    Loading...
                 </div>
             );
         }else{
