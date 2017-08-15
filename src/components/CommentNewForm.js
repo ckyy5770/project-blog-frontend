@@ -6,7 +6,7 @@ import { clearDataErr } from "../actions/post";
 import { createComment } from "../actions/comment"
 import { Link } from 'react-router-dom';
 import history from '../history';
-import { Button } from 'antd';
+import { Button, Icon } from 'antd';
 
 class CommentNewForm extends Component{
     constructor(){
@@ -38,7 +38,6 @@ class CommentNewForm extends Component{
 
         return (
             <div className={className}>
-                <label>{field.label}</label>
                 <textarea className="form-control" type={field.type} {...field.input}/>
                 <div className="input-helper">
                     {touched ? error : ""}
@@ -61,7 +60,7 @@ class CommentNewForm extends Component{
     renderButton(){
         const { handleSubmit } = this.props;
         return(
-            <div>
+            <div style={{textAlign: 'center'}}>
                 <Button onClick={handleSubmit(this.onSubmit.bind(this))}>
                     Submit
                 </Button>
@@ -74,16 +73,22 @@ class CommentNewForm extends Component{
     render(){
         if(this.props.user && this.props.user.id){
             return(
-                <form>
-                    <Field
-                        label="Leave you comment:"
-                        name="content"
-                        type="text"
-                        component={this.renderField}
-                    />
-                    {this.renderDataMessage()}
-                    {this.renderButton()}
-                </form>
+                <div>
+                    <div style={{padding: "0 0 2% 0"}}>
+                        Leave your comment &nbsp;
+                        <Icon type="message"/>
+                    </div>
+                    <form style={{fontSize: "1em"}}>
+                        <Field
+                            name="content"
+                            type="text"
+                            component={this.renderField}
+                        />
+                        {this.renderDataMessage()}
+                        {this.renderButton()}
+                    </form>
+                </div>
+
             );
         }else{
             return(

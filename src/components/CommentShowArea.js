@@ -58,14 +58,36 @@ class CommentShowArea extends Component{
     }
 
     renderCommentMeta(comment){
+        const commentId = comment._id;
+        const commentAuthor = comment.author;
         const createdAtParsed = moment(comment.createdAt, 'YYYY-MM-DDTHH:mm:ss.SSSZZ');
-        return (
-            <div style={styleCommentMeta}>
-                <Icon type="user" /><span>&nbsp;{comment.author.nickName}&nbsp;</span>
-                &nbsp;
-                <span>{createdAtParsed.format('MM/DD/YYYY h:mm A')}</span>
-            </div>
-        )
+
+        if(this.props.user && this.props.user.id && this.props.user.id === commentAuthor.id){
+            return (
+                <div>
+                    <Icon type="user" /><span>&nbsp;{comment.author.nickName}&nbsp;</span>
+                    &nbsp;
+                    <span>{createdAtParsed.format('MM/DD/YYYY h:mm A')}</span>
+                    &nbsp;
+                    <Button onClick={() => this.onEditClick(commentId)}>
+                        Edit
+                    </Button>
+                    &nbsp;
+                    <Button onClick={() => this.onDeleteClick(commentId)}>
+                        Delete
+                    </Button>
+                </div>
+            )
+        }else{
+            return (
+                <div>
+                    <Icon type="user" /><span>&nbsp;{comment.author.nickName}&nbsp;</span>
+                    &nbsp;
+                    <span>{createdAtParsed.format('MM/DD/YYYY h:mm A')}</span>
+                </div>
+            )
+        }
+
     }
     renderCommentButton(comment) {
         return (
@@ -95,7 +117,7 @@ class CommentShowArea extends Component{
                         </Col>
                     </Row>
                     <Row>
-                        {this.renderCommentButton(comment)}
+                        {this.renderCommentButton(comment, id, author)}
                     </Row>
                 </div>
             </div>

@@ -111,22 +111,29 @@ class PostShowPage extends Component{
             );
         }else{
             return (
-                <Row>
-                    <Col>
+                <div>
+                    <div>
                         <div>
                             {this.renderTitle()}
                             {this.renderPostMeta()}
                             {this.renderContent()}
                             {this.renderPostButton()}
                         </div>
-                        <div>
-                            <CommentNewForm postId={this.props.match.params.postId} />
-                        </div>
-                        <div>
-                            <CommentShowArea postId={this.props.match.params.postId} />
-                        </div>
-                    </Col>
-                </Row>
+                        <Row>
+                            <Col xs={{offset:1, span: 22}} sm={{offset:2, span: 20}} md={{offset:3,span:18}} lg={{offset:4,span:16}}>
+                                <div>
+                                    <CommentNewForm postId={this.props.match.params.postId} />
+                                </div>
+                                <div>
+                                    <div>
+                                        {this.props.show.data.comments} Comments:
+                                    </div>
+                                    <CommentShowArea postId={this.props.match.params.postId} />
+                                </div>
+                            </Col>
+                        </Row>
+                    </div>
+                </div>
             );
         }
     }
